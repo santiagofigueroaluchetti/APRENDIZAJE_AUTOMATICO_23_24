@@ -1,0 +1,585 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/santiagofigueroaluchetti/APRENDIZAJE_AUTOMATICO_23_24/blob/main/COPIA%20PRACTICA%203%20MIA\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "PZQ-pvl-6DCv"
+      },
+      "source": [
+        "Importación librerias necesarias"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 37,
+      "metadata": {
+        "id": "MA0E8e9K6Ftd"
+      },
+      "outputs": [],
+      "source": [
+        "import tensorflow as tf\n",
+        "from tensorflow.keras import layers, models\n",
+        "from tensorflow.keras.datasets import cifar100\n",
+        "from tensorflow.keras.utils import to_categorical\n",
+        "from tensorflow.keras.preprocessing import image\n",
+        "import numpy as np"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "VfqliL2H6KCG"
+      },
+      "source": [
+        "Cargar el conjunto de datos CIFAR-100"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 38,
+      "metadata": {
+        "id": "VldWgjZ-6Qq-"
+      },
+      "outputs": [],
+      "source": [
+        "(train_images, train_labels), (test_images, test_labels) = cifar100.load_data()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Mostrar información sobre los datos de entrenamiento\n",
+        "print(\"Dimensiones de train_images:\", train_images.shape)\n",
+        "print(\"Número de ejemplos de entrenamiento:\", len(train_images))\n",
+        "print(\"Dimensiones de train_labels:\", train_labels.shape)\n",
+        "\n",
+        "# Mostrar información sobre los datos de prueba\n",
+        "print(\"\\nDimensiones de test_images:\", test_images.shape)\n",
+        "print(\"Número de ejemplos de prueba:\", len(test_images))\n",
+        "print(\"Dimensiones de test_labels:\", test_labels.shape)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kN11-atYjVi5",
+        "outputId": "f2d11ef5-a6bf-471f-c6e3-afab8f1ca82f"
+      },
+      "execution_count": 39,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Dimensiones de train_images: (50000, 32, 32, 3)\n",
+            "Número de ejemplos de entrenamiento: 50000\n",
+            "Dimensiones de train_labels: (50000, 1)\n",
+            "\n",
+            "Dimensiones de test_images: (10000, 32, 32, 3)\n",
+            "Número de ejemplos de prueba: 10000\n",
+            "Dimensiones de test_labels: (10000, 1)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "e2gpLhLT6Pk2"
+      },
+      "source": [
+        "Normalizar las imágenes y convertir las etiquetas a one-hot encoding"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 40,
+      "metadata": {
+        "id": "hiqok68r6VjG"
+      },
+      "outputs": [],
+      "source": [
+        "train_images, test_images = train_images / 255.0, test_images / 255.0\n",
+        "train_labels = to_categorical(train_labels, 100)\n",
+        "test_labels = to_categorical(test_labels, 100)\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "O5At4ozO6cr-"
+      },
+      "source": [
+        "Definir el modelo CNN"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 41,
+      "metadata": {
+        "id": "kQ_oHfRZ6cKp"
+      },
+      "outputs": [],
+      "source": [
+        "model = models.Sequential()\n",
+        "\n",
+        "model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))\n",
+        "model.add(layers.BatchNormalization())\n",
+        "model.add(layers.MaxPooling2D((2, 2)))\n",
+        "model.add(layers.Dropout(0.25))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8IcHQ0gL6k1b"
+      },
+      "source": [
+        "Capa convolucional 2"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 42,
+      "metadata": {
+        "id": "rxaoqISp6cIR"
+      },
+      "outputs": [],
+      "source": [
+        "model.add(layers.Conv2D(64, (3, 3), activation='relu'))\n",
+        "model.add(layers.BatchNormalization())\n",
+        "model.add(layers.MaxPooling2D((2, 2)))\n",
+        "model.add(layers.Dropout(0.25))\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "CUyvrp5q6r08"
+      },
+      "source": [
+        " Capa convolucional 3"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 42,
+      "metadata": {
+        "id": "fscMzexP6cFe"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Capa convulacional 4"
+      ],
+      "metadata": {
+        "id": "WqQpbx8iUfOK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.add(layers.Conv2D(128, (3, 3), activation='relu'))\n",
+        "model.add(layers.BatchNormalization())\n",
+        "model.add(layers.MaxPooling2D((2, 2)))\n",
+        "model.add(layers.Dropout(0.25))\n"
+      ],
+      "metadata": {
+        "id": "ktV-dJTLjtjd"
+      },
+      "execution_count": 43,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-Uo8gBEf6wuN"
+      },
+      "source": [
+        "Aplanar la salida y agregar capas densas"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 44,
+      "metadata": {
+        "id": "qX1LpGbf6cC2"
+      },
+      "outputs": [],
+      "source": [
+        "model.add(layers.Flatten())\n",
+        "model.add(layers.Dense(128, activation='relu'))\n",
+        "model.add(layers.BatchNormalization())\n",
+        "model.add(layers.Dropout(0.5))\n",
+        "model.add(layers.Dense(100, activation='softmax'))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "asDBWzt668Ic"
+      },
+      "source": [
+        "Compilar el modelo"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 45,
+      "metadata": {
+        "id": "W3w6kTRB6b_u"
+      },
+      "outputs": [],
+      "source": [
+        "model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "UW7fQYrB6-dJ"
+      },
+      "source": [
+        " Resumen del modelo"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 46,
+      "metadata": {
+        "id": "sFiloTJc6b9N",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "4735f1ae-e798-42f4-eaf8-249877eeb625"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Model: \"sequential_3\"\n",
+            "_________________________________________________________________\n",
+            " Layer (type)                Output Shape              Param #   \n",
+            "=================================================================\n",
+            " conv2d_14 (Conv2D)          (None, 30, 30, 32)        896       \n",
+            "                                                                 \n",
+            " batch_normalization_10 (Ba  (None, 30, 30, 32)        128       \n",
+            " tchNormalization)                                               \n",
+            "                                                                 \n",
+            " max_pooling2d_9 (MaxPoolin  (None, 15, 15, 32)        0         \n",
+            " g2D)                                                            \n",
+            "                                                                 \n",
+            " dropout_10 (Dropout)        (None, 15, 15, 32)        0         \n",
+            "                                                                 \n",
+            " conv2d_15 (Conv2D)          (None, 13, 13, 64)        18496     \n",
+            "                                                                 \n",
+            " batch_normalization_11 (Ba  (None, 13, 13, 64)        256       \n",
+            " tchNormalization)                                               \n",
+            "                                                                 \n",
+            " max_pooling2d_10 (MaxPooli  (None, 6, 6, 64)          0         \n",
+            " ng2D)                                                           \n",
+            "                                                                 \n",
+            " dropout_11 (Dropout)        (None, 6, 6, 64)          0         \n",
+            "                                                                 \n",
+            " conv2d_16 (Conv2D)          (None, 4, 4, 128)         73856     \n",
+            "                                                                 \n",
+            " batch_normalization_12 (Ba  (None, 4, 4, 128)         512       \n",
+            " tchNormalization)                                               \n",
+            "                                                                 \n",
+            " max_pooling2d_11 (MaxPooli  (None, 2, 2, 128)         0         \n",
+            " ng2D)                                                           \n",
+            "                                                                 \n",
+            " dropout_12 (Dropout)        (None, 2, 2, 128)         0         \n",
+            "                                                                 \n",
+            " flatten_1 (Flatten)         (None, 512)               0         \n",
+            "                                                                 \n",
+            " dense_2 (Dense)             (None, 128)               65664     \n",
+            "                                                                 \n",
+            " batch_normalization_13 (Ba  (None, 128)               512       \n",
+            " tchNormalization)                                               \n",
+            "                                                                 \n",
+            " dropout_13 (Dropout)        (None, 128)               0         \n",
+            "                                                                 \n",
+            " dense_3 (Dense)             (None, 100)               12900     \n",
+            "                                                                 \n",
+            "=================================================================\n",
+            "Total params: 173220 (676.64 KB)\n",
+            "Trainable params: 172516 (673.89 KB)\n",
+            "Non-trainable params: 704 (2.75 KB)\n",
+            "_________________________________________________________________\n"
+          ]
+        }
+      ],
+      "source": [
+        "model.summary()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ilrmKHmN7Crh"
+      },
+      "source": [
+        "Entrenar el modelo"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "QtA1ncxg7DrK",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "44847af3-15cb-4f78-bceb-2e5aadbdda03"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Epoch 1/32\n",
+            "313/313 [==============================] - 8s 13ms/step - loss: 4.4195 - accuracy: 0.0634 - val_loss: 4.7221 - val_accuracy: 0.0373\n",
+            "Epoch 2/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 3.7117 - accuracy: 0.1291 - val_loss: 3.7616 - val_accuracy: 0.1294\n",
+            "Epoch 3/32\n",
+            "313/313 [==============================] - 4s 13ms/step - loss: 3.4233 - accuracy: 0.1806 - val_loss: 3.2716 - val_accuracy: 0.2084\n",
+            "Epoch 4/32\n",
+            "313/313 [==============================] - 4s 12ms/step - loss: 3.2083 - accuracy: 0.2161 - val_loss: 3.0353 - val_accuracy: 0.2522\n",
+            "Epoch 5/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 3.0609 - accuracy: 0.2466 - val_loss: 3.0048 - val_accuracy: 0.2559\n",
+            "Epoch 6/32\n",
+            "313/313 [==============================] - 4s 11ms/step - loss: 2.9542 - accuracy: 0.2654 - val_loss: 2.7797 - val_accuracy: 0.3079\n",
+            "Epoch 7/32\n",
+            "313/313 [==============================] - 4s 14ms/step - loss: 2.8603 - accuracy: 0.2809 - val_loss: 2.6752 - val_accuracy: 0.3272\n",
+            "Epoch 8/32\n",
+            "313/313 [==============================] - 4s 11ms/step - loss: 2.7875 - accuracy: 0.2965 - val_loss: 2.7270 - val_accuracy: 0.3141\n",
+            "Epoch 9/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.7372 - accuracy: 0.3072 - val_loss: 2.6442 - val_accuracy: 0.3336\n",
+            "Epoch 10/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.6873 - accuracy: 0.3209 - val_loss: 2.6745 - val_accuracy: 0.3260\n",
+            "Epoch 11/32\n",
+            "313/313 [==============================] - 4s 13ms/step - loss: 2.6383 - accuracy: 0.3260 - val_loss: 2.7078 - val_accuracy: 0.3305\n",
+            "Epoch 12/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.6040 - accuracy: 0.3311 - val_loss: 2.5736 - val_accuracy: 0.3419\n",
+            "Epoch 13/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.5660 - accuracy: 0.3401 - val_loss: 2.3458 - val_accuracy: 0.4021\n",
+            "Epoch 14/32\n",
+            "313/313 [==============================] - 4s 13ms/step - loss: 2.5328 - accuracy: 0.3469 - val_loss: 2.6340 - val_accuracy: 0.3376\n",
+            "Epoch 15/32\n",
+            "313/313 [==============================] - 4s 12ms/step - loss: 2.4944 - accuracy: 0.3543 - val_loss: 2.3189 - val_accuracy: 0.4029\n",
+            "Epoch 16/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.4783 - accuracy: 0.3593 - val_loss: 2.4557 - val_accuracy: 0.3757\n",
+            "Epoch 17/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.4544 - accuracy: 0.3633 - val_loss: 2.3674 - val_accuracy: 0.3895\n",
+            "Epoch 18/32\n",
+            "313/313 [==============================] - 4s 12ms/step - loss: 2.4282 - accuracy: 0.3696 - val_loss: 2.7307 - val_accuracy: 0.3210\n",
+            "Epoch 19/32\n",
+            "313/313 [==============================] - 4s 11ms/step - loss: 2.4081 - accuracy: 0.3728 - val_loss: 2.2561 - val_accuracy: 0.4108\n",
+            "Epoch 20/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.3969 - accuracy: 0.3775 - val_loss: 2.2301 - val_accuracy: 0.4199\n",
+            "Epoch 21/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.3740 - accuracy: 0.3788 - val_loss: 2.4286 - val_accuracy: 0.3805\n",
+            "Epoch 22/32\n",
+            "313/313 [==============================] - 4s 13ms/step - loss: 2.3579 - accuracy: 0.3869 - val_loss: 2.4185 - val_accuracy: 0.3832\n",
+            "Epoch 23/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.3482 - accuracy: 0.3851 - val_loss: 2.3154 - val_accuracy: 0.4005\n",
+            "Epoch 24/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.3258 - accuracy: 0.3893 - val_loss: 2.2269 - val_accuracy: 0.4181\n",
+            "Epoch 25/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.3112 - accuracy: 0.3930 - val_loss: 2.3585 - val_accuracy: 0.3939\n",
+            "Epoch 26/32\n",
+            "313/313 [==============================] - 4s 13ms/step - loss: 2.3078 - accuracy: 0.3943 - val_loss: 2.2310 - val_accuracy: 0.4205\n",
+            "Epoch 27/32\n",
+            "313/313 [==============================] - 3s 11ms/step - loss: 2.2936 - accuracy: 0.3983 - val_loss: 2.2013 - val_accuracy: 0.4314\n",
+            "Epoch 28/32\n",
+            "313/313 [==============================] - ETA: 0s - loss: 2.2884 - accuracy: 0.3957"
+          ]
+        }
+      ],
+      "source": [
+        "model.fit(train_images, train_labels, epochs=32, batch_size=128, validation_split=0.2)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Suponiendo que test_images[9] es una imagen en formato de píxeles (array NumPy)\n",
+        "image_to_visualize = test_images[9]\n",
+        "\n",
+        "# Muestra la imagen\n",
+        "plt.imshow(image_to_visualize)\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "3qwMpdtHr85T"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Realiza la predicción:\n"
+      ],
+      "metadata": {
+        "id": "jDj9AH55rhva"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "input_data = np.expand_dims(test_images[9], axis=0)\n",
+        "predictions = model.predict(input_data)\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "7m0jQIevrFtE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Obtén la etiqueta predicha:\n"
+      ],
+      "metadata": {
+        "id": "mSAW-ISKrmEy"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "predicted_label = np.argmax(predictions)\n",
+        "print(predicted_label)"
+      ],
+      "metadata": {
+        "id": "H6PP2O7ArhLL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Perfecto, predice perfectamente el ejemplo."
+      ],
+      "metadata": {
+        "id": "hTGDBANnscpx"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "wbT1GzNprzxI"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "DzT8prNpaTPT"
+      },
+      "outputs": [],
+      "source": [
+        "# Función para clasificar una imagen dada\n",
+        "def classify_image(img_array):\n",
+        "    img_array = np.expand_dims(img_array, axis=0)\n",
+        "    img_array /= 255.0\n",
+        "\n",
+        "    predictions = model.predict(img_array)\n",
+        "    class_index = np.argmax(predictions)\n",
+        "    return class_index\n",
+        "\n",
+        "\n",
+        "# Mapeo de clases a nombres completos\n",
+        "classes = {\n",
+        "    0: \"apple\", 1: \"aquarium_fish\", 2: \"baby\", 3: \"bear\", 4: \"beaver\", 5: \"bed\",\n",
+        "    6: \"bee\", 7: \"beetle\", 8: \"bicycle\", 9: \"bottle\", 10: \"bowl\", 11: \"boy\",\n",
+        "    12: \"bridge\", 13: \"bus\", 14: \"butterfly\", 15: \"camel\", 16: \"can\", 17: \"castle\",\n",
+        "    18: \"caterpillar\", 19: \"cattle\", 20: \"chair\", 21: \"chimpanzee\", 22: \"clock\",\n",
+        "    23: \"cloud\", 24: \"cockroach\", 25: \"couch\", 26: \"crab\", 27: \"crocodile\",\n",
+        "    28: \"cup\", 29: \"dinosaur\", 30: \"dolphin\", 31: \"elephant\", 32: \"flatfish\",\n",
+        "    33: \"forest\", 34: \"fox\", 35: \"girl\", 36: \"hamster\", 37: \"house\",\n",
+        "    38: \"kangaroo\", 39: \"computer_keyboard\", 40: \"lamp\", 41: \"lawn_mower\",\n",
+        "    42: \"leopard\", 43: \"lion\", 44: \"lizard\", 45: \"lobster\", 46: \"man\",\n",
+        "    47: \"maple_tree\", 48: \"motorcycle\", 49: \"mountain\", 50: \"mouse\",\n",
+        "    51: \"mushroom\", 52: \"oak_tree\", 53: \"orange\", 54: \"orchid\", 55: \"otter\",\n",
+        "    56: \"palm_tree\", 57: \"pear\", 58: \"pickup_truck\", 59: \"pine_tree\",\n",
+        "    60: \"plain\", 61: \"plate\", 62: \"poppy\", 63: \"porcupine\", 64: \"possum\",\n",
+        "    65: \"rabbit\", 66: \"raccoon\", 67: \"ray\", 68: \"road\", 69: \"rocket\",\n",
+        "    70: \"rose\", 71: \"sea\", 72: \"seal\", 73: \"shark\", 74: \"shrew\",\n",
+        "    75: \"skunk\", 76: \"skyscraper\", 77: \"snail\", 78: \"snake\", 79: \"spider\",\n",
+        "    80: \"squirrel\", 81: \"streetcar\", 82: \"sunflower\", 83: \"sweet_pepper\",\n",
+        "    84: \"table\", 85: \"tank\", 86: \"telephone\", 87: \"television\", 88: \"tiger\",\n",
+        "    89: \"tractor\", 90: \"train\", 91: \"trout\", 92: \"tulip\", 93: \"turtle\",\n",
+        "    94: \"wardrobe\", 95: \"whale\", 96: \"willow_tree\", 97: \"wolf\",\n",
+        "    98: \"woman\", 99: \"worm\"\n",
+        "}\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "pWoGBVOQbkNk"
+      },
+      "outputs": [],
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "example_image_position=27\n",
+        "# Visualizar la imagen en la posición 57 de test_images\n",
+        "example_image = test_images[example_image_position]\n",
+        "\n",
+        "# Muestra la imagen\n",
+        "plt.imshow(example_image)\n",
+        "plt.title(f'Imagen en la posición {example_image_position}')\n",
+        "plt.axis('off')\n",
+        "plt.show()\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "e4R0A-Wi4jL1"
+      },
+      "source": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
